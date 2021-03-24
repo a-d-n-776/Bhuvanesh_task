@@ -12,3 +12,4 @@ steps:
           
           sum=$((${{ parameters.A }} + ${{ parameters.B }}))
           echo "sum of parameters : $sum"
+
