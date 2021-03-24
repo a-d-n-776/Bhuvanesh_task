@@ -94,7 +94,7 @@ stages:
 - stage: Test
   displayName: ' B_Test stage '
   dependsOn: Arithmetic_operations_stage
-  #condition: failed()  
+  condition: failed()  
   jobs:
 
   - job: Test
