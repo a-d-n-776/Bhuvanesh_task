@@ -1,0 +1,13 @@
+parameters:
+- name: A
+- name: B
+
+steps:
+
+    - task: CmdLine@2
+      displayName: 'Run a multi-line script'
+      inputs:
+        script: |
+        
+          mul=$((${{ parameters.A }} * ${{ parameters.B }}))
+          echo "mul of parameters : $mul"
