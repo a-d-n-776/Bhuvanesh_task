@@ -93,8 +93,7 @@ stages:
 - stage: Test
   displayName: ' B_Test stage '
   dependsOn: Arithmetic_operations_stage
-  #condition: failed()
-  condition: passed()  
+  #condition: failed()  
   jobs:
 
   - job: Test
@@ -102,6 +101,7 @@ stages:
 - stage: DeployUS1
   displayName: ' C_DeployUS1 stage '
   dependsOn: Test    # this stage runs after Test
+  condition: failed()
   jobs:
 
   - job: DeployUS1
