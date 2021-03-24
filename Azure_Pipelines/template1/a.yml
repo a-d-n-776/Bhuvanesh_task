@@ -26,7 +26,7 @@ stages:
     displayName: ' 1_sum of parameters '
     #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
     steps:
-    - template: ../../templates/atemplates/template1/sum.yml
+    - template: ../../templates/template1/sum.yml
       parameters:
         A: $(A)
         B: $(B)
