@@ -20,8 +20,3 @@ steps:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
       publishLocation: 'Container'
-        sudo apt-get update -y
-        sudo apt-get install jq -y
-        sudo apt-get curl -y
-        sudo apt install curl -y
-        echo ${{ parameters.packageJSON }} > packagePipeline.json
