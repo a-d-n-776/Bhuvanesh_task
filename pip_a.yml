@@ -19,7 +19,7 @@ variables:
 
 stages:
 
-- stage: Arithmetic_operations_job
+- stage: Arithmetic_operations_stage
   displayName: ' Arithmetic operations stage '
 
   jobs:
@@ -92,6 +92,8 @@ stages:
 
 - stage: Test
   displayName: ' B_Test stage '
+  dependsOn: Arithmetic_operations_stage
+  condition: failed() 
   jobs:
 
   - job: Test
