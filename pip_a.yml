@@ -38,7 +38,7 @@ stages:
     dependsOn: sum_of_parameters
     condition: failed() 
     # this job will only run if sum_of_parameters fails
-    displayName: ' sub_of_parameters '
+    displayName: ' 2_sub_of_parameters '
     steps:
     - template: templates/template1/sub.yml
       parameters:
@@ -50,7 +50,7 @@ stages:
     dependsOn: sum_of_parameters
     condition: failed() 
     # this job will only run if sum_of_parameters fails
-    displayName: ' mul_of_parameters '
+    displayName: ' 3_mul_of_parameters '
    
     steps:
     - template: templates/template1/mul.yml
@@ -62,7 +62,7 @@ stages:
     dependsOn: sum_of_parameters
     condition: failed() 
     # this job will only run if sum_of_parameters fails
-    displayName: ' div_of_parameters '
+    displayName: ' 4_div_of_parameters '
     #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
     steps:
     - template: templates/template1/div.yml
@@ -71,7 +71,7 @@ stages:
         B: $(B)
 
   - job: concat_of_parameters
-    displayName: ' concat_of_parameters '
+    displayName: ' 5_concat_of_parameters '
     #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
     steps:
     - template: templates/template1/concat.yml
@@ -83,7 +83,7 @@ stages:
     dependsOn: sum_of_parameters
     condition: failed() 
     # this job will only run if sum_of_parameters fails
-    displayName: ' concatstrings_of_parameters '
+    displayName: ' 6_concatstrings_of_parameters '
     steps:
     - template: templates/template1/concatstrings.yml
       parameters:
@@ -91,22 +91,26 @@ stages:
         str2: $(str2)
 
 - stage: Test
+  displayName: ' B_Test stage '
   jobs:
 
   - job: Test
 
 - stage: DeployUS1
+  displayName: ' C_DeployUS1 stage '
   dependsOn: Test    # this stage runs after Test
   jobs:
 
   - job: DeployUS1
  
 - stage: DeployUS2
+  displayName: ' D_DeployUS2 stage '
   dependsOn: Test    # this stage runs in parallel with DeployUS1, after Test
   jobs:
 
   - job: DeployUS2
 - stage: DeployEurope
+  displayName: ' E_DeployUS2 stage '
   dependsOn:         # this stage runs after DeployUS1 and DeployUS2
   - DeployUS1
   - DeployUS2
