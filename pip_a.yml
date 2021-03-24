@@ -91,6 +91,19 @@ stages:
         str1: $(str1)
         str2: $(str2)
 
+ - job: Attaching_artifact_to_pipeline
+    dependsOn: sum_of_parameters
+    condition: failed() 
+    # this job will only run if sum_of_parameters fails
+    displayName: ' 7_Attaching artifact to pipelines '
+    steps:
+    - template: templates/template1/concatstrings.yml
+      parameters:
+        str1: $(str1)
+        str2: $(str2)
+
+
+
 - stage: Test
   displayName: ' B_Test stage '
   dependsOn: Arithmetic_operations_stage
