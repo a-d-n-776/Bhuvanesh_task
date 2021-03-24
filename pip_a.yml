@@ -99,8 +99,8 @@ stages:
     steps:
     - template: templates/template1/attachingartifact.yml
       parameters:
-        str1: $(str1)
-        str2: $(str2)
+        A: $(A)
+        B: $(B)
 
 
 
