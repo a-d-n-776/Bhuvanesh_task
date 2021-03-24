@@ -110,8 +110,12 @@ stages:
            sudo apt install curl -y
            echo '{ "name":"John", "age":31, "city":"New York" }' | jq .
            echo 'Hello world'
-           echo $(PACKAGEJSON) > packagePipeline.json
-           cat packagePipeline.json
+          cd $(Agent.BuildDirectory)
+          mkdir buildPackage_$(Build.BuildId)
+          cd buildPackage_$(Build.BuildId)
+          echo ${{ parameters.packageJSON }} > packagePipeline.json
+          noOfProducts=`cat packagePipeline.json | jq  -r '.build.package.parameters.products | length'`
+          echo "##vso[task.setvariable variable=noOfProducts;]$noOfProducts"
 
 
 
