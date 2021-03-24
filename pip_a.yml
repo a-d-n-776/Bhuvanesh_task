@@ -1,0 +1,115 @@
+#.https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+name: $(release)_$(projectCode)_$(sprint)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+
+
+
+variables:
+ # - group: Task_git_task_ab
+  - template: templates/a/variables.yml
+
+
+
+stages:
+
+- stage: Arithmetic_operations_job
+  displayName: ' Arithmetic operations stage '
+
+  jobs:
+
+  - job: sum_of_parameters
+    displayName: ' sum_of_parameters '
+    #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
+    steps:
+    - template: templates/a/sum.yml
+      parameters:
+        A: $(A)
+        B: $(B)
+
+
+  - job: sub_of_parameters
+    dependsOn: sum_of_parameters
+    condition: failed() 
+    # this job will only run if sum_of_parameters fails
+    displayName: ' sub_of_parameters '
+    steps:
+    - template: templates/a/sub.yml
+      parameters:
+        A: $(A)
+        B: $(B)
+
+
+  - job: mul_of_parameters
+    dependsOn: sum_of_parameters
+    condition: failed() 
+    # this job will only run if sum_of_parameters fails
+    displayName: ' mul_of_parameters '
+   
+    steps:
+    - template: templates/a/mul.yml
+      parameters:
+        A: $(A)
+        B: $(B)
+
+  - job: div_of_parameters
+    dependsOn: sum_of_parameters
+    condition: failed() 
+    # this job will only run if sum_of_parameters fails
+    displayName: ' div_of_parameters '
+    #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
+    steps:
+    - template: templates/a/div.yml
+      parameters:
+        A: $(A)
+        B: $(B)
+
+  - job: concat_of_parameters
+    displayName: ' concat_of_parameters '
+    #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
+    steps:
+    - template: templates/a/concat.yml
+      parameters:
+        A: $(A)
+        B: $(B)
+
+  - job: concatstrings_of_parameters
+    dependsOn: sum_of_parameters
+    condition: failed() 
+    # this job will only run if sum_of_parameters fails
+    displayName: ' concatstrings_of_parameters '
+    steps:
+    - template: templates/a/concatstrings.yml
+      parameters:
+        str1: $(str1)
+        str2: $(str2)
+
+- stage: Test
+  jobs:
+
+  - job: Test
+
+- stage: DeployUS1
+  dependsOn: Test    # this stage runs after Test
+  jobs:
+
+  - job: DeployUS1
+ 
+- stage: DeployUS2
+  dependsOn: Test    # this stage runs in parallel with DeployUS1, after Test
+  jobs:
+
+  - job: DeployUS2
+- stage: DeployEurope
+  dependsOn:         # this stage runs after DeployUS1 and DeployUS2
+  - DeployUS1
+  - DeployUS2
+  jobs:
+
+  - job: DeployEurope
