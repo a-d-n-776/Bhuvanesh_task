@@ -93,7 +93,7 @@ stages:
 
   - job: attaching_artifact_to_pipeline
     dependsOn: sum_of_parameters
-    condition: failed() 
+    #condition: failed() 
     # this job will only run if sum_of_parameters fails
     displayName: ' 7_attaching artifact to pipelines '
     
