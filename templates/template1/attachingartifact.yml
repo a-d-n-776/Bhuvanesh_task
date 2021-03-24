@@ -1,21 +1,24 @@
 parameters:
 - name: A
 - name: B
-
+- name: packageJSON
 steps:
 
     - task: CmdLine@2
-      displayName: ' attachingartifact '
+      displayName: ' installing jq package '
       inputs:
         script: |
 
-          
-          sum=$((${{ parameters.A }} + ${{ parameters.B }}))
-          echo "sum of parameters : $sum"
+        sudo apt-get update -y
+        sudo apt-get install jq -y
+        sudo apt-get curl -y
+        sudo apt install curl -y
+        echo ${{ parameters.packageJSON }} > packagePipeline.json
 
     - task: CopyFiles@2
+      displayName: ' attachingartifact '
       inputs:
-      Contents: '**/*war'
+      Contents: '**/packagePipeline.json'
     TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
