@@ -4,10 +4,6 @@ parameters:
 - name: packageJSON
 steps:
 
-
-      
-
-    
     - task: Bash@3
       inputs:
         targetType: 'inline'
