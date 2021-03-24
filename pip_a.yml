@@ -97,9 +97,33 @@ stages:
     # this job will only run if sum_of_parameters fails
     displayName: ' 7_attaching artifact to pipelines '
     steps:
-    - template: templates/template1/attachingartifact.yml
-      parameters:
-        packageJSON: $(buildPipelineJSON)
+
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+        sudo apt-get update -y
+        sudo apt-get install jq -y
+        sudo apt-get curl -y
+        sudo apt install curl -y
+
+        echo ${{ parameters.packageJSON }} > packagePipeline.json
+        cd $(Agent.BuildDirectory)
+        mkdir buildPackage_$(Build.BuildId)
+        cd buildPackage_$(Build.BuildId)
+        echo ${{ parameters.packageJSON }} > packagePipeline.json
+
+
+    - task: CopyFiles@2
+      displayName: ' attachingartifact '
+      inputs:
+      Contents: '**/packagePipeline.json'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
 
 
 
