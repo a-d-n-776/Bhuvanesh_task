@@ -1,0 +1,15 @@
+parameters:
+- name: str1
+- name: str2
+
+steps:
+
+    - task: CmdLine@2
+      displayName: 'Run a multi-line script'
+      inputs:
+        script: |
+
+          
+          #concatstrings=$((${{ parameters.str1 }} ${{ parameters.str2 }}))
+          #echo "concatstrings of parameters : $concatstrings"
+          echo "concatstrings of parameters : ${{ parameters.str1 }} ${{ parameters.str2 }}"
