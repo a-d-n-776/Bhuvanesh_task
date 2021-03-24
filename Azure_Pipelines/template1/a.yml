@@ -1,0 +1,61 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+name: $(release)_$(projectCode)_$(sprint)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+
+
+
+variables:
+  - group: Task_git_task_ab
+#  - template: templates/variables.yml
+
+
+
+stages:
+
+- stage: arithmetic_operations_job
+  displayName: ' arithmetic operations job '
+
+  jobs:
+
+  - job: sum_of_parameters
+    displayName: ' 1_sum of parameters '
+    #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
+    steps:
+    - template: ../../templates/atemplates/template1/sum.yml
+      parameters:
+        A: $(A)
+        B: $(B)
+
+
+  - job: sum_of_parameters
+    displayName: ' sum_of_parameters '
+    condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
+    steps:
+    - template: ../templates/a/sum.yml
+      parameters:
+        A: $(A)
+        B: $(B)
+
+
+  - job: sub_of_parameters
+    displayName: ' sub_of_parameters '
+    condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
+    steps:
+    - template: templates/a/sub.yml
+      parameters:
+        A: $(A)
+        B: $(B)
+
+  - job: mul_of_parameters
+    displayName: ' mul_of_parameters '
+    condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
+    steps:
+    - template: templates/a/mul.yml
+      parameters:
+        A: $(A)
+        B: $(B)
