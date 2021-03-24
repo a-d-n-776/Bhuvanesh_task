@@ -27,6 +27,7 @@ stages:
   - job: sum_of_parameters
     displayName: ' 1_sum_of_parameters '
     #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
+    #condition: always() # this step will always run, even if the pipeline is canceled
     steps:
     - template: templates/template1/sum.yml
       parameters:
@@ -37,7 +38,7 @@ stages:
   - job: sub_of_parameters
     dependsOn: sum_of_parameters
     condition: failed() 
-    # this job will only run if sum_of_parameters fails
+# this job will only run if job sum_of_parameters fails
     displayName: ' 2_sub_of_parameters '
     steps:
     - template: templates/template1/sub.yml
