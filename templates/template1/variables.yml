@@ -1,8 +1,8 @@
 variables:
  - name: A
-   value: 100
+   value: 5
  - name: B
-   value: 200
+   value: 3
  - name: str1
    value: 'Hello'
  - name: str2
