@@ -1,0 +1,17 @@
+variables:
+ - name: A
+   value: 100
+ - name: B
+   value: 200
+ - name: str1
+   value: 'Hello'
+ - name: str2
+   value: 'World'
+
+ - name: release
+   value: R1
+ - name: projectCode
+   value: PC-007
+ - name: sprint
+   value: SP-007
+
