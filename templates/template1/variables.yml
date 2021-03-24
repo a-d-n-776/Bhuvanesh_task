@@ -15,6 +15,5 @@ variables:
  - name: sprint
    value: SP-007
 
- - name: buildPipelineJSON
-   value: {     "build": {         "package": {             "parameters": {                 "products": [                     {                         "productName": "HBBSS_R44_2_BUG_1",                         "productVersion": "01-01-45",                         "sequence": "1",                         "packageType": "RULES",                         "productPackageName": "HBBSS_R44_2_BUG_1_24032021"                     }                 ],                 "sql": [],                 "updateAccessGroups": {                     "accessGroupList": "CASPER:Administrators,CASPER:Managers,CASPER:Users,CASPER:SelfServiceAdministrators",                     "applicationName": "CASPER",                     "applicationVersion": "03.04.50"                 }             }         },         "rollback": {             "parameters": {                 "updateAccessGroups": {                     "accessGroupList": "CASPER:Administrators,CASPER:Managers,CASPER:Users,CASPER:SelfServiceAdministrators",                     "applicationName": "CASPER",                     "applicationVersion": "03.04.01"                 }             }         }     } }
+
 
