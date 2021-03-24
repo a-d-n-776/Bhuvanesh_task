@@ -99,8 +99,7 @@ stages:
     steps:
     - template: templates/template1/attachingartifact.yml
       parameters:
-        A: $(A)
-        B: $(B)
+        packageJSON: $(buildPipelineJSON)
 
 
 
