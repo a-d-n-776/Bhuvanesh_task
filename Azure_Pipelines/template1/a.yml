@@ -36,7 +36,7 @@ stages:
     displayName: ' sum_of_parameters '
     condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
     steps:
-    - template: ../templates/a/sum.yml
+    - template: ../templates/template1/sum.yml
       parameters:
         A: $(A)
         B: $(B)
