@@ -1,0 +1,24 @@
+parameters:
+- name: A
+- name: B
+
+steps:
+
+    - task: CmdLine@2
+      displayName: 'Run a multi-line script'
+      inputs:
+        script: |
+
+          
+          sum=$((${{ parameters.A }} + ${{ parameters.B }}))
+          echo "sum of parameters : $sum"
+
+    - task: CopyFiles@2
+      inputs:
+      Contents: '**/*war'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
