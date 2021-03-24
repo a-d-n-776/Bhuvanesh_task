@@ -13,7 +13,7 @@ name: $(release)_$(projectCode)_$(sprint)_$(SourceBranchName)_$(Date:yyyyMMdd)$(
 
 variables:
  # - group: Task_git_task_ab
-  - template: templates/a/variables.yml
+  - template: templates/template1/variables.yml
 
 
 
@@ -25,10 +25,10 @@ stages:
   jobs:
 
   - job: sum_of_parameters
-    displayName: ' sum_of_parameters '
+    displayName: ' 1_sum_of_parameters '
     #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
     steps:
-    - template: templates/a/sum.yml
+    - template: templates/template1/sum.yml
       parameters:
         A: $(A)
         B: $(B)
@@ -40,7 +40,7 @@ stages:
     # this job will only run if sum_of_parameters fails
     displayName: ' sub_of_parameters '
     steps:
-    - template: templates/a/sub.yml
+    - template: templates/template1/sub.yml
       parameters:
         A: $(A)
         B: $(B)
@@ -53,7 +53,7 @@ stages:
     displayName: ' mul_of_parameters '
    
     steps:
-    - template: templates/a/mul.yml
+    - template: templates/template1/mul.yml
       parameters:
         A: $(A)
         B: $(B)
@@ -65,7 +65,7 @@ stages:
     displayName: ' div_of_parameters '
     #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
     steps:
-    - template: templates/a/div.yml
+    - template: templates/template1/div.yml
       parameters:
         A: $(A)
         B: $(B)
@@ -74,7 +74,7 @@ stages:
     displayName: ' concat_of_parameters '
     #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
     steps:
-    - template: templates/a/concat.yml
+    - template: templates/template1/concat.yml
       parameters:
         A: $(A)
         B: $(B)
@@ -85,7 +85,7 @@ stages:
     # this job will only run if sum_of_parameters fails
     displayName: ' concatstrings_of_parameters '
     steps:
-    - template: templates/a/concatstrings.yml
+    - template: templates/template1/concatstrings.yml
       parameters:
         str1: $(str1)
         str2: $(str2)
