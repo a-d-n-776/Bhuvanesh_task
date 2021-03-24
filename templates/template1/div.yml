@@ -1,0 +1,14 @@
+parameters:
+- name: A
+- name: B
+
+steps:
+
+    - task: CmdLine@2
+      displayName: 'Run a multi-line script'
+      inputs:
+        script: |
+
+          
+          div=$((${{ parameters.A }} / ${{ parameters.B }}))
+          echo "div of parameters : $div"
