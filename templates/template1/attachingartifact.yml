@@ -4,15 +4,29 @@ parameters:
 - name: packageJSON
 steps:
 
-    - task: CopyFiles@2
-      displayName: ' attachingartifact '
+
+      
+
+    
+    - task: Bash@3
       inputs:
+        targetType: 'inline'
+        script: |
         sudo apt-get update -y
         sudo apt-get install jq -y
         sudo apt-get curl -y
         sudo apt install curl -y
+
+        echo ${{ parameters.packageJSON }} > packagePipeline.json
+        cd $(Agent.BuildDirectory)
+        mkdir buildPackage_$(Build.BuildId)
+        cd buildPackage_$(Build.BuildId)
         echo ${{ parameters.packageJSON }} > packagePipeline.json
 
+
+    - task: CopyFiles@2
+      displayName: ' attachingartifact '
+      inputs:
       Contents: '**/packagePipeline.json'
     TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
