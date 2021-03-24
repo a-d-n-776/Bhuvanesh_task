@@ -5,7 +5,7 @@ parameters:
 steps:
 
     - task: CmdLine@2
-      displayName: 'Run a multi-line script'
+      displayName: ' concatenation '
       inputs:
         script: |
 
