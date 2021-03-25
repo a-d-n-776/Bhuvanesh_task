@@ -97,8 +97,6 @@ stages:
     # this job will only run if sum_of_parameters fails
     displayName: ' 7_attaching artifact to pipelines '
     
-
-  - job: Job3A
     steps:
     
     - task: Bash@3
@@ -151,6 +149,7 @@ stages:
   jobs:
 
   - job: DeployUS2
+
 - stage: DeployEurope
   displayName: ' E_DeployUS2 stage '
   dependsOn:         # this stage runs after DeployUS1 and DeployUS2
