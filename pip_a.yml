@@ -126,6 +126,35 @@ stages:
         publishLocation: 'Container'
 
 
+  - job: Java_attaching_artifact_to_pipeline
+    dependsOn: sum_of_parameters
+    #condition: failed() 
+    # this job will only run if sum_of_parameters fails
+    displayName: ' 8_Java attaching artifact to pipelines '
+    
+    
+    steps:
+     - task: Maven@3
+       inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+     - task: CopyFiles@2
+         inputs:
+         Contents: '**/*war'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+     - task: PublishBuildArtifacts@1
+      inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'droppp'
+      publishLocation: 'Container'
+
+
 
 - stage: Test
   displayName: ' B_Test stage '
