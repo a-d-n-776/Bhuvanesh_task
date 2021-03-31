@@ -1,40 +1,15 @@
-#.https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
 trigger:
-- master
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
 
-name: $(release)_$(projectCode)_$(sprint)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
-
-
-
-
-variables:
- # - group: Task_git_task_ab
- # - template: templates/template1/variables.yml
-stages:
-
-- stage: Arithmetic_operations_stage
-  displayName: ' Arithmetic operations stage '
-
-  jobs:
-
-  - job: sum_of_parameters
-    #displayName: ' 1_sum_of_parameters '
-    #condition: and(succeeded(), eq(variables.category, 'PACKAGE'))
-    #condition: always() # this step will always run, even if the pipeline is canceled
-    
-stages:
-
- - stage: Arithmetic_
-   displayName: ' Arithmetic'
-
-    jobs:
-     - job: sum_of_par
-     displayName: ' 1_sum_of_par '
-     steps:
+steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -44,23 +19,13 @@ stages:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-     goals: 'package'
+    goals: 'package'
 - task: CopyFiles@2
   inputs:
-    Contents: '**/*war'
+    Contents: '**/*.war'
     TargetFolder: '$(build.artifactstagingdirectory)'
-
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    ArtifactName: 'warfile'
     publishLocation: 'Container'
-
-
-
- - stage: Arithmetic_operations_stage
-   displayName: ' Arithmetic operations stage '
- 
-    jobs:
-     - job: sum_of_parameters
-      displayName: ' 1_sum_of_parameters '
